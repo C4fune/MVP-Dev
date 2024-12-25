@@ -16,18 +16,17 @@
         }
 
         body {
-            background: #000000;
+            background: #e2e2e2;
             color: #ffffff;
         }
 
-        /* Header Styles */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: 64px;
-            background: #000000;
+            background: #5f5f5f;
             z-index: 1000;
             padding: 0 24px;
             display: flex;
@@ -90,33 +89,58 @@
             border: none;
         }
 
-        /* Main Content */
         .main-content {
-            position: relative;
-            height: 100vh;
             display: flex;
+            height: 100vh;
         }
 
-        /* Map Styles */
-        #map {
+        .content-left {
+            width: 50%;
+            position: relative;
+            background-color: #000000;
+            padding-top: 64px;
+        }
+
+        .grid-overlay {
             position: absolute;
             top: 64px;
+            left: 0;
             right: 0;
             bottom: 0;
-            left: 0;
-            background: #f8f9fa;
+            background-image: 
+                linear-gradient(rgba(128,128,128,0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(128,128,128,0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
         }
 
-        /* Search Form */
-        .search-container {
+        .content-right {
+            width: 50%;
+            position: relative;
+            padding-top: 64px;
+            background-color: #000000;
+        }
+
+        #map {
             position: absolute;
-            top: 104px;
-            left: 24px;
-            width: 400px;
+            top: 84px;
+            right: 32px;
+            bottom: 32px;
+            left: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-container {
+            position: relative;
+            margin: 40px 32px;
+            width: calc(100% - 64px);
+            max-width: 400px;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 24px;
+            padding: 32px;
             z-index: 100;
         }
 
@@ -183,11 +207,10 @@
             margin-top: 16px;
         }
 
-        /* Map controls */
         .map-controls {
             position: absolute;
-            right: 24px;
-            bottom: 24px;
+            right: 48px;
+            bottom: 48px;
             z-index: 100;
         }
 
@@ -210,6 +233,166 @@
 
         .zoom-button:last-child {
             border-bottom: none;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h2 {
+            color: #000000;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .modal-header p {
+            color: #545454;
+            margin-top: 8px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #545454;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #e2e2e2;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .modal-container .auth-button {
+            width: 100%;
+            padding: 12px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .google-auth-button {
+            width: 100%;
+            padding: 12px;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #e2e2e2;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #545454;
+        }
+
+        .modal-footer a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 16px 0;
+            color: #545454;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #545454;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -8px;
+        }
+
+        .forgot-password a {
+            color: #545454;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .terms {
+            font-size: 14px;
+            color: #545454;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .terms a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -234,56 +417,166 @@
             </nav>
         </div>
         <div class="header-right">
-            <button class="auth-button login-btn">Log in</button>
-            <button class="auth-button signup-btn">Sign up</button>
+            <button class="auth-button login-btn" onclick="openModal('loginModal')">Log in</button>
+            <button class="auth-button signup-btn" onclick="openModal('signupModal')">Sign up</button>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Map Container -->
-        <div id="map"></div>
-
-        <!-- Search Form -->
-        <div class="search-container">
-            <h1 class="search-header">Go anywhere with UniThrift</h1>
-            <div class="search-options">
-                <button class="option-button active">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L4 9v12h16V9l-8-7zm0 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+        <!-- Left Side with Grid Background -->
+        <div class="content-left">
+            <div class="grid-overlay"></div>
+            <!-- Search Form -->
+            <div class="search-container">
+                <h1 class="search-header">Go anywhere with UniThrift</h1>
+                <div class="search-options">
+                    <button class="option-button active">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L4 9v12h16V9l-8-7zm0 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                        Buy
+                    </button>
+                    <button class="option-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        Sell
+                    </button>
+                </div>
+                <div class="input-group">
+                    <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
-                    Buy
-                </button>
-                <button class="option-button">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    <input type="text" id="locationInput" class="location-input" placeholder="Enter your location">
+                </div>
+                <div class="input-group">
+                    <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                     </svg>
-                    Sell
-                </button>
+                    <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50">
+                </div>
+                <button class="search-button" onclick="searchLocation()">See available items</button>
             </div>
-            <div class="input-group">
-                <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                <input type="text" id="locationInput" class="location-input" placeholder="Enter your location">
-            </div>
-            <div class="input-group">
-                <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                </svg>
-                <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50">
-            </div>
-            <button class="search-button" onclick="searchLocation()">See available items</button>
         </div>
 
-        <!-- Map Controls -->
-        <div class="map-controls">
-            <div class="zoom-control">
-                <button class="zoom-button" onclick="zoomIn()">+</button>
-                <button class="zoom-button" onclick="zoomOut()">−</button>
+        <!-- Right Side with Map -->
+        <div class="content-right">
+            <div id="map"></div>
+            <div class="map-controls">
+                <div class="zoom-control">
+                    <button class="zoom-button" onclick="zoomIn()">+</button>
+                    <button class="zoom-button" onclick="zoomOut()">−</button>
+                </div>
             </div>
         </div>
     </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="close-button" onclick="closeModal('loginModal')">&times;</button>
+            <div class="modal-header">
+                <h2>Welcome back</h2>
+                <p>Log in to continue to UniThrift</p>
+            </div>
+            
+            <button class="google-auth-button" onclick="handleGoogleAuth('login')">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                    <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
+                    <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+                    <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.192 0 7.56 0 9s.348 2.808.957 4.039l3.007-2.332z"/>
+                    <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+                </svg>
+                Continue with Google
+            </button>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email address</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="auth-button">Log in</button>
+            </form>
+
+            <div class="modal-footer">
+                Don't have an account? <a onclick="switchModal('loginModal', 'signupModal')">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="close-button" onclick="closeModal('signupModal')">&times;</button>
+            <div class="modal-header">
+                <h2>Create your account</h2>
+                <p>Join UniThrift to start buying and selling</p>
+            </div>
+            
+            <button class="google-auth-button" onclick="handleGoogleAuth('signup')">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                    <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
+                    <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+                    <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.192 0 7.56 0 9s.348 2.808.957 4.039l3.007-2.332z"/>
+                    <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+                </svg>
+                Continue with Google
+            </button>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <form class="auth-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email address</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required 
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                           title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 characters">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+
+                <button type="submit" class="auth-button">Create account</button>
+            </form>
+
+            <p class="terms">
+                By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </p>
+
+            <div class="modal-footer">
+                Already have an account? <a onclick="switchModal('signupModal', 'loginModal')">Log in</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
@@ -293,7 +586,6 @@
         let circle;
         
         function initMap() {
-            // Initialize the map centered on a default location (e.g., Pittsburgh)
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 40.4406, lng: -79.9959 },
                 zoom: 13,
@@ -321,19 +613,15 @@
                 fullscreenControl: false
             });
 
-            // Initialize the autocomplete
             const input = document.getElementById('locationInput');
             const autocomplete = new google.maps.places.Autocomplete(input);
 
-            // Update map when place is selected
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
                 if (!place.geometry) return;
 
-                // Update map center
                 map.setCenter(place.geometry.location);
                 
-                // Update or create marker
                 if (marker) {
                     marker.setPosition(place.geometry.location);
                 } else {
@@ -343,7 +631,6 @@
                     });
                 }
 
-                // Update circle if radius is set
                 updateCircle(place.geometry.location);
             });
         }
@@ -352,7 +639,7 @@
             const radius = document.getElementById('radiusInput').value;
             if (!radius) return;
 
-            const radiusInMeters = radius * 1609.34; // Convert miles to meters
+            const radiusInMeters = radius * 1609.34;
 
             if (circle) {
                 circle.setMap(null);
@@ -368,8 +655,21 @@
                 strokeWeight: 1
             });
 
-            // Fit map to circle bounds
             map.fitBounds(circle.getBounds());
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function switchModal(closeModalId, openModalId) {
+            closeModal(closeModalId);
+            openModal(openModalId);
         }
 
         function searchLocation() {
@@ -381,11 +681,44 @@
                 return;
             }
 
-            // Here you would typically:
-            // 1. Validate the inputs
-            // 2. Send the search request to your backend
-            // 3. Display results on the map and/or redirect to results page
-            console.log(`Searching near ${location} within ${radius} miles`);
+            openModal('loginModal');
+        }
+
+        // Authentication handlers
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Here you would typically make an API call to your backend
+            console.log('Login attempt:', { email, password });
+            // For demo purposes, close modal
+            closeModal('loginModal');
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Here you would typically make an API call to your backend
+            console.log('Signup attempt:', { name, email, password });
+            // For demo purposes, close modal
+            closeModal('signupModal');
+        }
+
+        function handleGoogleAuth(type) {
+            // Here you would implement Google OAuth
+            console.log('Google auth clicked for:', type);
+            // For demo purposes, close modal
+            closeModal(type === 'login' ? 'loginModal' : 'signupModal');
         }
 
         function zoomIn() {
@@ -395,8 +728,22 @@
         function zoomOut() {
             map.setZoom(map.getZoom() - 1);
         }
+
+        // Password validation
+        const signupPassword = document.getElementById('signupPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        function validatePassword() {
+            if (signupPassword.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity('Passwords do not match');
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        }
+
+        signupPassword.onchange = validatePassword;
+        confirmPassword.onkeyup = validatePassword;
     </script>
-    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPBLvzCV9wXQ_-0fW-epVBQNyO5-YN8JQ&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>

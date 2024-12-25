@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniThrift</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UberMove:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'UberMove', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #e2e2e2;
+            color: #ffffff;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: #5f5f5f;
+            z-index: 1000;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .auth-button {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            color: #ffffff;
+            background: transparent;
+            border: none;
+        }
+
+        .signup-btn {
+            color: #000000;
+            background: #ffffff;
+            border: none;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Left Side with Grid Background */
+        .content-left {
+            width: 50%;
+            position: relative;
+            background-color: #000000;
+            padding-top: 64px;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(128,128,128,0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(128,128,128,0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        /* Right Side with Map */
+        .content-right {
+            width: 50%;
+            position: relative;
+            padding-top: 64px;
+            background-color: #000000;
+        }
+
+        #map {
+            position: absolute;
+            top: 84px;
+            right: 32px;
+            bottom: 32px;
+            left: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Search Form */
+        .search-container {
+            position: relative;
+            margin: 40px 32px;
+            width: calc(100% - 64px);
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            z-index: 100;
+        }
+
+        .search-header {
+            color: #000000;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .search-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .option-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: none;
+            background: #f6f6f6;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        .option-button.active {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .location-input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid #e2e2e2;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .location-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 12px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        /* Map controls */
+        .map-controls {
+            position: absolute;
+            right: 48px;
+            bottom: 48px;
+            z-index: 100;
+        }
+
+        .zoom-control {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .zoom-button {
+            border: none;
+            background: none;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .zoom-button:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-section">
+                <svg class="logo" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="35" cy="40" r="3" fill="white"/>
+                    <circle cx="65" cy="40" r="3" fill="white"/>
+                    <ellipse cx="50" cy="50" rx="8" ry="6" fill="white"/>
+                    <path d="M 20 50 Q 50 70 80 50" fill="none" stroke="white" stroke-width="2"/>
+                </svg>
+                <span style="color: white; font-size: 16px; font-weight: 500;">UniThrift</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link">Categories</a>
+                <a href="#" class="nav-link">Business</a>
+                <a href="#" class="nav-link">About</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <button class="auth-button login-btn">Log in</button>
+            <button class="auth-button signup-btn">Sign up</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Left Side with Grid Background -->
+        <div class="content-left">
+            <div class="grid-overlay"></div>
+            <!-- Search Form -->
+            <div class="search-container">
+                <h1 class="search-header">Go anywhere with UniThrift</h1>
+                <div class="search-options">
+                    <button class="option-button active">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L4 9v12h16V9l-8-7zm0 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                        Buy
+                    </button>
+                    <button class="option-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        Sell
+                    </button>
+                </div>
+                <div class="input-group">
+                    <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <input type="text" id="locationInput" class="location-input" placeholder="Enter your location">
+                </div>
+                <div class="input-group">
+                    <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    </svg>
+                    <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50">
+                </div>
+                <button class="search-button" onclick="searchLocation()">See available items</button>
+            </div>
+        </div>
+
+        <!-- Right Side with Map -->
+        <div class="content-right">
+            <div id="map"></div>
+            <div class="map-controls">
+                <div class="zoom-control">
+                    <button class="zoom-button" onclick="zoomIn()">+</button>
+                    <button class="zoom-button" onclick="zoomOut()">−</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let map;
+        let marker;
+        let circle;
+        
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 40.4406, lng: -79.9959 },
+                zoom: 13,
+                styles: [
+                    {
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#242f3e"}]
+                    },
+                    {
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#746855"}]
+                    },
+                    {
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{"color": "#242f3e"}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#17263c"}]
+                    }
+                ],
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false
+            });
+
+            const input = document.getElementById('locationInput');
+            const autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) return;
+
+                map.setCenter(place.geometry.location);
+                
+                if (marker) {
+                    marker.setPosition(place.geometry.location);
+                } else {
+                    marker = new google.maps.Marker({
+                        map: map,
+                        position: place.geometry.location
+                    });
+                }
+
+                updateCircle(place.geometry.location);
+            });
+        }
+
+        function updateCircle(center) {
+            const radius = document.getElementById('radiusInput').value;
+            if (!radius) return;
+
+            const radiusInMeters = radius * 1609.34;
+
+            if (circle) {
+                circle.setMap(null);
+            }
+
+            circle = new google.maps.Circle({
+                map: map,
+                center: center,
+                radius: radiusInMeters,
+                fillColor: '#4285F4',
+                fillOpacity: 0.2,
+                strokeColor: '#4285F4',
+                strokeWeight: 1
+            });
+
+            map.fitBounds(circle.getBounds());
+        }
+
+        function searchLocation() {
+            const location = document.getElementById('locationInput').value;
+            const radius = document.getElementById('radiusInput').value;
+            
+            if (!location || !radius) {
+                alert('Please enter both location and radius');
+                return;
+            }
+
+            console.log(`Searching near ${location} within ${radius} miles`);
+        }
+
+        function zoomIn() {
+            map.setZoom(map.getZoom() + 1);
+        }
+
+        function zoomOut() {
+            map.setZoom(map.getZoom() - 1);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPBLvzCV9wXQ_-0fW-epVBQNyO5-YN8JQ&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>

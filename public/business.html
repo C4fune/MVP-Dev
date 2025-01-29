@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniThrift - Business</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Header (same style, but pointing to different pages) -->
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" style="text-decoration: none; color: inherit;">
+        <div class="logo-section">
+          <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+            <circle cx="35" cy="40" r="3" fill="white"/>
+            <circle cx="65" cy="40" r="3" fill="white"/>
+            <ellipse cx="50" cy="50" rx="8" ry="6" fill="white"/>
+            <path d="M 20 50 Q 50 70 80 50" fill="none" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="categories.html" class="nav-link">Categories</a>
+        <a href="business.html" class="nav-link">Business</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <button class="auth-button login-btn" id="openLoginModal">Log in</button>
+      <button class="auth-button signup-btn" id="openSignupModal">Sign up</button>
+    </div>
+  </header>
+
+  <!-- Simple content for this page -->
+  <main style="padding: 90px 30px;">
+    <h1 style="color: #000">Categories Page</h1>
+    <p style="color: #000">Show or filter items by category here.</p>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

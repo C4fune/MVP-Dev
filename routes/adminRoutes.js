@@ -1,6 +1,5 @@
 /**
  * routes/adminRoutes.js
- * - Admin panel for user/item moderation, plus transaction history
  */
 const express = require('express');
 const router = express.Router();
@@ -15,7 +14,7 @@ router.get('/users', auth, isAdmin, async (req, res) => {
   try {
     const users = await User.find().select('-password');
     res.json(users);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
@@ -28,9 +27,9 @@ router.put('/makeAdmin/:userId', auth, isAdmin, async (req, res) => {
       { role: 'admin' },
       { new: true }
     );
-    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+    if(!updatedUser) return res.status(404).json({ message: 'User not found' });
     res.json({ message: 'User promoted to admin', user: updatedUser });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
@@ -39,9 +38,9 @@ router.put('/makeAdmin/:userId', auth, isAdmin, async (req, res) => {
 router.delete('/users/:userId', auth, isAdmin, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.userId);
-    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+    if(!deletedUser) return res.status(404).json({ message: 'User not found' });
     res.json({ message: 'User deleted' });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
@@ -51,28 +50,28 @@ router.get('/items', auth, isAdmin, async (req, res) => {
   try {
     const items = await Item.find().populate('seller', 'fullName email');
     res.json(items);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Delete item by admin
+// Delete item
 router.delete('/items/:itemId', auth, isAdmin, async (req, res) => {
   try {
     const item = await Item.findByIdAndDelete(req.params.itemId);
-    if (!item) return res.status(404).json({ message: 'Item not found' });
+    if(!item) return res.status(404).json({ message: 'Item not found' });
     res.json({ message: 'Item deleted by admin' });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// View transaction history (all or by user)
+// View all or specific user transactions
 router.get('/transactions', auth, isAdmin, async (req, res) => {
   try {
     const { userId } = req.query;
     let filter = {};
-    if (userId) {
+    if(userId) {
       filter = { $or: [{ buyer: userId }, { seller: userId }] };
     }
     const transactions = await Transaction.find(filter)
@@ -80,7 +79,7 @@ router.get('/transactions', auth, isAdmin, async (req, res) => {
       .populate('seller', 'fullName email')
       .populate('item');
     res.json(transactions);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });

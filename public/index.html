@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UniThrift - Advanced</title>
+  <title>UniThrift - Home</title>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     rel="stylesheet"
@@ -14,20 +14,24 @@
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-      <div class="logo-section">
-        <svg class="logo" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
-          <circle cx="35" cy="40" r="3" fill="white"/>
-          <circle cx="65" cy="40" r="3" fill="white"/>
-          <ellipse cx="50" cy="50" rx="8" ry="6" fill="white"/>
-          <path d="M 20 50 Q 50 70 80 50" fill="none" stroke="white" stroke-width="2"/>
-        </svg>
-        <span style="color: white; font-size: 16px; font-weight: 500;">UniThrift</span>
-      </div>
+      <!-- Logo + link back to index.html -->
+      <a href="index.html" style="text-decoration: none; color: inherit;">
+        <div class="logo-section">
+          <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+            <circle cx="35" cy="40" r="3" fill="white"/>
+            <circle cx="65" cy="40" r="3" fill="white"/>
+            <ellipse cx="50" cy="50" rx="8" ry="6" fill="white"/>
+            <path d="M 20 50 Q 50 70 80 50" fill="none" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+      </a>
       <nav class="nav-links">
-        <a href="#" class="nav-link">Categories</a>
-        <a href="#" class="nav-link">Business</a>
-        <a href="#" class="nav-link">Leaderboard</a>
+        <!-- Updated links to other pages -->
+        <a href="categories.html" class="nav-link">Categories</a>
+        <a href="business.html" class="nav-link">Business</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="leaderboard.html" class="nav-link">Leaderboard</a>
       </nav>
     </div>
     <div class="header-right">
@@ -51,22 +55,33 @@
         <!-- Location & radius inputs -->
         <div class="input-group">
           <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0
-              9.5c-1.38 0-2-.9-2-2s.62-2
-              2-2 2 .9 2 2-.9 2-2 2z" />
+            <path d="M12 2C8.13 2 5 5.13 5
+                     9c0 5.25 7
+                     13 7 13s7-7.75
+                     7-13c0-3.87-3.13-7-7-7zm0
+                     9.5c-1.38 0-2-.9-2-2s.62-2
+                     2-2 2 .9
+                     2 2-.9
+                     2-2
+                     2z"/>
           </svg>
           <input type="text" id="locationInput" class="location-input" placeholder="Enter your location"/>
         </div>
         <div class="input-group">
           <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
-            <path d="M12 2C6.48 2 2 6.48
-                     2 12s4.48 10 10
+            <path d="M12 2C6.48 2
+                     2 6.48 2
+                     12s4.48
+                     10 10
                      10 10-4.48
                      10-10S17.52 2
                      12 2zm0
                      18c-4.41 0-8-3.59-8-8s3.59-8
                      8-8 8
-                     3.59 8 8-3.59 8-8 8z" />
+                     3.59
+                     8
+                     8-3.59
+                     8-8 8z"/>
           </svg>
           <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50"/>
         </div>
@@ -108,9 +123,7 @@
         <h2>Welcome back</h2>
         <p>Log in to continue to UniThrift</p>
       </div>
-      <button class="google-auth-button" id="loginWithGoogle">
-        Continue with Google
-      </button>
+      <button class="google-auth-button" id="loginWithGoogle">Continue with Google</button>
       <div class="divider"><span>or</span></div>
       <form class="auth-form" id="loginForm">
         <div class="form-group">
@@ -141,9 +154,7 @@
         <h2>Create your account</h2>
         <p>Join UniThrift to start buying & selling</p>
       </div>
-      <button class="google-auth-button" id="signupWithGoogle">
-        Continue with Google
-      </button>
+      <button class="google-auth-button" id="signupWithGoogle">Continue with Google</button>
       <div class="divider"><span>or</span></div>
       <form class="auth-form" id="signupForm">
         <div class="form-group">
@@ -175,21 +186,19 @@
         <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
       </p>
       <div class="modal-footer">
-        Already have an account?
-        <a id="toLoginLink" style="cursor:pointer;">Log in</a>
+        Already have an account? <a id="toLoginLink" style="cursor:pointer;">Log in</a>
       </div>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-  <!-- Socket.io -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="scripts.js"></script>
-  <!-- Google Maps -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPBLvzCV9wXQ_-0fW-epVBQNyO5-YN8JQ&libraries=places&callback=initMap"
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"
     async
     defer
   ></script>
 </body>
 </html>
+

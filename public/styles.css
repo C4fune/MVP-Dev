@@ -8,8 +8,14 @@
     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-body {
+html, body {
+  width: 100%;
+  min-height: 100%;
   background: #e2e2e2;
+  overflow-x: hidden;
+}
+
+body {
   color: #ffffff;
 }
 
@@ -82,18 +88,17 @@ body {
   border: none;
 }
 
+/* main-content fix: remove height: 100vh, just let it size naturally */
 .main-content {
   display: flex;
-  height: 100vh;
-  margin-top: 64px; /* Because the header is fixed */
+  margin-top: 64px; /* Because header is fixed */
 }
 
 .content-left {
   width: 50%;
   position: relative;
   background-color: #000000;
-  padding-top: 64px;
-  overflow-y: auto;
+  padding-top: 64px; /* if you want a top pad, optional */
 }
 
 .grid-overlay {
@@ -112,8 +117,8 @@ body {
 .content-right {
   width: 50%;
   position: relative;
-  padding-top: 64px;
   background-color: #000000;
+  padding-top: 64px;
 }
 
 #map {
@@ -213,7 +218,7 @@ body {
 .zoom-control {
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
 }
@@ -238,7 +243,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   z-index: 2000;
   justify-content: center;
   align-items: center;
@@ -250,7 +255,7 @@ body {
   padding: 32px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   position: relative;
 }
 

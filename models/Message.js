@@ -1,6 +1,5 @@
 /**
  * models/Message.js
- * - Direct messages between users (for DMs), if storing them
  */
 const mongoose = require('mongoose');
 
@@ -8,7 +7,7 @@ const messageSchema = new mongoose.Schema({
   sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   content: { type: String, required: true },
-  item: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' }, // optional
+  item: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
   createdAt: { type: Date, default: Date.now }
 });
 

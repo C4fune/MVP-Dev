@@ -1,6 +1,5 @@
 /**
  * routes/userRoutes.js
- * - Sign up, Log in, Manage favorites
  */
 const express = require('express');
 const router = express.Router();
@@ -12,10 +11,9 @@ const auth = require('../utils/auth');
 router.post('/signup', async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User with that email already exists.' });
-    }
+    const existing = await User.findOne({ email });
+    if(existing) return res.status(400).json({ message: 'User with that email already exists.' });
+
     const newUser = new User({ fullName, email, password });
     await newUser.save();
 
@@ -30,7 +28,7 @@ router.post('/signup', async (req, res) => {
         role: newUser.role
       }
     });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
@@ -40,9 +38,10 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ message: 'Invalid email or password.' });
+    if(!user) return res.status(401).json({ message: 'Invalid email or password.' });
+
     const match = await user.comparePassword(password);
-    if (!match) return res.status(401).json({ message: 'Invalid email or password.' });
+    if(!match) return res.status(401).json({ message: 'Invalid email or password.' });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({
@@ -55,47 +54,45 @@ router.post('/login', async (req, res) => {
         role: user.role
       }
     });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Get my profile (protected)
+// Get my profile
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    if(!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Add item to favorites
+// Add to favorites
 router.put('/favorites/:itemId', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
-    const itemId = req.params.itemId;
-    if (user.favorites.includes(itemId)) {
+    if(user.favorites.includes(req.params.itemId)) {
       return res.status(400).json({ message: 'Item already in favorites.' });
     }
-    user.favorites.push(itemId);
+    user.favorites.push(req.params.itemId);
     await user.save();
     res.json({ message: 'Item added to favorites.' });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Remove item from favorites
+// Remove from favorites
 router.delete('/favorites/:itemId', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
-    const itemId = req.params.itemId;
-    user.favorites = user.favorites.filter(fav => fav.toString() !== itemId);
+    user.favorites = user.favorites.filter(f => f.toString() !== req.params.itemId);
     await user.save();
     res.json({ message: 'Item removed from favorites.' });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });

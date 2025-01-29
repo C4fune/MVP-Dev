@@ -1,20 +1,19 @@
 /**
  * utils/isAdmin.js
- * - Check if user has admin role
  */
 const User = require('../models/User');
 
 module.exports = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
-    if (!user) {
+    if(!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    if (user.role !== 'admin') {
+    if(user.role !== 'admin') {
       return res.status(403).json({ message: 'Admin access required' });
     }
     next();
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 };

@@ -1,6 +1,5 @@
 /**
  * routes/reviewRoutes.js
- * - Create & fetch user reviews
  */
 const express = require('express');
 const router = express.Router();
@@ -11,7 +10,7 @@ const auth = require('../utils/auth');
 router.post('/', auth, async (req, res) => {
   try {
     const { reviewee, rating, comment } = req.body;
-    if (reviewee === req.userId) {
+    if(reviewee === req.userId) {
       return res.status(400).json({ message: 'Cannot review yourself.' });
     }
     const newReview = new Review({
@@ -22,18 +21,18 @@ router.post('/', auth, async (req, res) => {
     });
     await newReview.save();
     res.status(201).json({ message: 'Review created', review: newReview });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Get reviews for a user
+// Get reviews for user
 router.get('/:userId', async (req, res) => {
   try {
     const reviews = await Review.find({ reviewee: req.params.userId })
       .populate('reviewer', 'fullName email');
     res.json(reviews);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });

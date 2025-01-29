@@ -1,6 +1,5 @@
 /**
  * routes/messageRoutes.js
- * - Basic direct message endpoints (if storing in DB)
  */
 const express = require('express');
 const router = express.Router();
@@ -18,14 +17,14 @@ router.post('/', auth, async (req, res) => {
       item: itemId || null
     });
     await newMessage.save();
-    // Could emit socket event here
+    // Could emit socket event here if you want
     res.status(201).json({ message: 'Message sent', data: newMessage });
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Get conversation with another user
+// Get conversation
 router.get('/:otherUserId', auth, async (req, res) => {
   try {
     const otherUserId = req.params.otherUserId;
@@ -36,7 +35,7 @@ router.get('/:otherUserId', auth, async (req, res) => {
       ]
     }).sort({ createdAt: 1 });
     res.json(messages);
-  } catch (err) {
+  } catch(err) {
     res.status(500).json({ message: err.message });
   }
 });

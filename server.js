@@ -1,14 +1,12 @@
 /**
  * server.js
- * Main entry point for the Express application
+ * Main entry for the Express app
  */
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const path = require('path');
 const cors = require('cors');
-
-// DB connection
 const connectDB = require('./config/db');
 
 // Routes
@@ -18,17 +16,15 @@ const messageRoutes = require('./routes/messageRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const extraRoutes = require('./routes/extraRoutes'); // leaderboard & profile
+const extraRoutes = require('./routes/extraRoutes');
 
-// Initialize Express
 const app = express();
 connectDB(process.env.MONGO_URI);
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve uploads for images
+// Serve uploads (images)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Register routes
@@ -38,20 +34,20 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/extra', extraRoutes); // leaderboard, profile
+app.use('/api/extra', extraRoutes);
 
-// Serve frontend
+// Serve static front-end
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Fallback for SPA
+// Fallback for single-page or multipage approach
 app.get('*', (req, res) => {
+  // You can decide if you want a fallback to index, or let your separate pages load
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Create server & integrate Socket.io
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
-require('./socket')(server); // Socket.io setup
+require('./socket')(server);
 
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

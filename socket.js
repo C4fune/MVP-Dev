@@ -1,11 +1,9 @@
 /**
  * socket.js
- * Handles real-time chat with dedicated chat rooms + item notifications
+ * Handles real-time chat & item notifications
  */
-
 const { Server } = require('socket.io');
 
-// For category subscription or room membership, etc.
 const usersSubscribedToCategory = {};
 
 module.exports = (server) => {
@@ -19,16 +17,15 @@ module.exports = (server) => {
   io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
 
-    // Join dedicated chat room
+    // Join a dedicated chat room
     socket.on('joinRoom', (roomId) => {
       socket.join(roomId);
       console.log(`Socket ${socket.id} joined room ${roomId}`);
     });
 
-    // Send a chat message to a room
+    // Send chat message to a room
     socket.on('sendRoomMessage', (data) => {
       const { roomId, content, sender } = data;
-      // Broadcast to that room
       io.to(roomId).emit('receiveRoomMessage', {
         sender,
         content,
@@ -45,7 +42,7 @@ module.exports = (server) => {
       console.log(`Socket ${socket.id} subscribed to category: ${category}`);
     });
 
-    // Notify users in a category about a new item
+    // Notify subscribers of new item
     socket.on('newItemCreated', (item) => {
       const { category } = item;
       const subscribers = usersSubscribedToCategory[category] || [];
@@ -54,10 +51,9 @@ module.exports = (server) => {
       });
     });
 
-    // On disconnect
     socket.on('disconnect', () => {
-      console.log(`User disconnected: ${socket.id}`);
-      // Remove from any category subscriptions
+      console.log('User disconnected:', socket.id);
+      // remove from category subscriptions
       Object.keys(usersSubscribedToCategory).forEach((cat) => {
         usersSubscribedToCategory[cat] = usersSubscribedToCategory[cat].filter(
           (id) => id !== socket.id

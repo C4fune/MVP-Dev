@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=UberMove:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'UberMove', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background: #e2e2e2;
+  color: #ffffff;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #5f5f5f;
+  z-index: 1000;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.auth-button {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-btn {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+}
+
+.signup-btn {
+  color: #000000;
+  background: #ffffff;
+  border: none;
+}
+
+.main-content {
+  display: flex;
+  height: 100vh;
+  margin-top: 64px; /* Because the header is fixed */
+}
+
+.content-left {
+  width: 50%;
+  position: relative;
+  background-color: #000000;
+  padding-top: 64px;
+  overflow-y: auto;
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(128, 128, 128, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 128, 128, 0.2) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+}
+
+.content-right {
+  width: 50%;
+  position: relative;
+  padding-top: 64px;
+  background-color: #000000;
+}
+
+#map {
+  position: absolute;
+  top: 84px;
+  right: 32px;
+  bottom: 32px;
+  left: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-container {
+  position: relative;
+  margin: 40px 32px;
+  width: calc(100% - 64px);
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  z-index: 100;
+}
+
+.search-header {
+  color: #000000;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.search-options {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.option-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background: #f6f6f6;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.option-button.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.location-input {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #000000;
+}
+
+.location-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-button {
+  width: 100%;
+  padding: 12px;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.map-controls {
+  position: absolute;
+  right: 48px;
+  bottom: 48px;
+  z-index: 100;
+}
+
+.zoom-control {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom-button {
+  border: none;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.zoom-button:last-child {
+  border-bottom: none;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.modal-header p {
+  color: #545454;
+  margin-top: 8px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #545454;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #000000;
+}
+
+.modal-container .auth-button {
+  width: 100%;
+  padding: 12px;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.google-auth-button {
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: #545454;
+}
+
+.modal-footer a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 16px 0;
+  color: #545454;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #545454;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-top: -8px;
+}
+
+.forgot-password a {
+  color: #545454;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.terms {
+  font-size: 14px;
+  color: #545454;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.terms a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+}

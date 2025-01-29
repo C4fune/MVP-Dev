@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniThrift - Advanced</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-section">
+        <svg class="logo" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+          <circle cx="35" cy="40" r="3" fill="white"/>
+          <circle cx="65" cy="40" r="3" fill="white"/>
+          <ellipse cx="50" cy="50" rx="8" ry="6" fill="white"/>
+          <path d="M 20 50 Q 50 70 80 50" fill="none" stroke="white" stroke-width="2"/>
+        </svg>
+        <span style="color: white; font-size: 16px; font-weight: 500;">UniThrift</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#" class="nav-link">Categories</a>
+        <a href="#" class="nav-link">Business</a>
+        <a href="#" class="nav-link">Leaderboard</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <button class="auth-button login-btn" id="openLoginModal">Log in</button>
+      <button class="auth-button signup-btn" id="openSignupModal">Sign up</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Left side with grid overlay & search container -->
+    <div class="content-left">
+      <div class="grid-overlay"></div>
+      <div class="search-container">
+        <h1 class="search-header">Go anywhere with UniThrift</h1>
+        <div class="search-options">
+          <button class="option-button active" id="buyOption">Buy</button>
+          <button class="option-button" id="sellOption">Sell</button>
+        </div>
+
+        <!-- Location & radius inputs -->
+        <div class="input-group">
+          <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0
+              9.5c-1.38 0-2-.9-2-2s.62-2
+              2-2 2 .9 2 2-.9 2-2 2z" />
+          </svg>
+          <input type="text" id="locationInput" class="location-input" placeholder="Enter your location"/>
+        </div>
+        <div class="input-group">
+          <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
+            <path d="M12 2C6.48 2 2 6.48
+                     2 12s4.48 10 10
+                     10 10-4.48
+                     10-10S17.52 2
+                     12 2zm0
+                     18c-4.41 0-8-3.59-8-8s3.59-8
+                     8-8 8
+                     3.59 8 8-3.59 8-8 8z" />
+          </svg>
+          <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50"/>
+        </div>
+        <button class="search-button" id="searchButton">See available items</button>
+
+        <!-- Create item form -->
+        <div id="createItemForm" style="display:none; margin-top: 20px;">
+          <h4 style="color: #000;">Create New Listing</h4>
+          <form id="createItemActualForm" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Title" class="form-control mb-2"/>
+            <textarea name="description" placeholder="Description" class="form-control mb-2"></textarea>
+            <input type="text" name="category" placeholder="Category" class="form-control mb-2"/>
+            <input type="number" name="price" placeholder="Price" class="form-control mb-2" step="0.01"/>
+            <label class="form-label">Images (up to 5):</label>
+            <input type="file" name="images" multiple class="form-control mb-2"/>
+            <button type="submit" class="search-button mt-2">Create Listing</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side - Map -->
+    <div class="content-right">
+      <div id="map"></div>
+      <div class="map-controls">
+        <div class="zoom-control">
+          <button class="zoom-button" id="zoomInBtn">+</button>
+          <button class="zoom-button" id="zoomOutBtn">−</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="close-button" id="closeLoginModal">&times;</button>
+      <div class="modal-header">
+        <h2>Welcome back</h2>
+        <p>Log in to continue to UniThrift</p>
+      </div>
+      <button class="google-auth-button" id="loginWithGoogle">
+        Continue with Google
+      </button>
+      <div class="divider"><span>or</span></div>
+      <form class="auth-form" id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email address</label>
+          <input type="email" id="loginEmail" required/>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required/>
+        </div>
+        <div class="forgot-password">
+          <a href="#">Forgot password?</a>
+        </div>
+        <button type="submit" class="auth-button">Log in</button>
+      </form>
+      <div class="modal-footer">
+        Don't have an account?
+        <a id="toSignupLink" style="cursor:pointer;">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="close-button" id="closeSignupModal">&times;</button>
+      <div class="modal-header">
+        <h2>Create your account</h2>
+        <p>Join UniThrift to start buying & selling</p>
+      </div>
+      <button class="google-auth-button" id="signupWithGoogle">
+        Continue with Google
+      </button>
+      <div class="divider"><span>or</span></div>
+      <form class="auth-form" id="signupForm">
+        <div class="form-group">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" required/>
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">Email address</label>
+          <input type="email" id="signupEmail" required/>
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input
+            type="password"
+            id="signupPassword"
+            required
+            pattern="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 characters"
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" required/>
+        </div>
+        <button type="submit" class="auth-button">Create account</button>
+      </form>
+      <p class="terms">
+        By signing up, you agree to our
+        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+      </p>
+      <div class="modal-footer">
+        Already have an account?
+        <a id="toLoginLink" style="cursor:pointer;">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <!-- Socket.io -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts.js"></script>
+  <!-- Google Maps -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPBLvzCV9wXQ_-0fW-epVBQNyO5-YN8JQ&libraries=places&callback=initMap"
+    async
+    defer
+  ></script>
+</body>
+</html>

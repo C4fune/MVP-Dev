@@ -1,17 +1,18 @@
-<!-- public/business.html -->
+<!-- public/profile.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>UniThrift - Business</title>
+  <title>UniThrift - My Profile</title>
   <link
-    rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="header-left">
       <a href="index.html" style="text-decoration:none;color:inherit;">
@@ -30,27 +31,30 @@
         <a href="business.html" class="nav-link">Business</a>
         <a href="about.html" class="nav-link">About</a>
         <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+        <!-- "My Profile" link is added dynamically in scripts.js if user is logged in -->
       </nav>
     </div>
-    <div class="header-right" id="headerRight"></div>
+    <div class="header-right" id="headerRight">
+      <!-- Will show "Log out" if logged in -->
+    </div>
   </header>
 
-  <main class="main-content" style="flex-direction:column; padding:80px 24px;">
-    <h1 style="color:#fff; margin-bottom:20px;">Business Partnerships</h1>
-    <p style="color:#ddd; max-width:600px;">
-      UniThrift partners with local campus stores, community businesses,
-      and sustainability offices to create a thriving ecosystem. 
-      By listing and selling items, students can earn money while 
-      businesses can promote campus-friendly solutions.
-    </p>
-    <div style="color:#ddd; margin-top:30px;">
-      <h3>How to Collaborate</h3>
-      <ul>
-        <li>Promote student deals</li>
-        <li>Sponsor campus events</li>
-        <li>Provide eco-friendly packaging solutions</li>
-      </ul>
-    </div>
+  <main class="main-content" style="flex-direction:column; padding:80px 30px;">
+    <h1 id="profileTitle" style="color:#fff; margin-bottom:20px;">My Profile</h1>
+
+    <!-- Basic user info section -->
+    <section id="userInfoSection" style="color:#ddd; margin-bottom:20px;">
+      <p><strong>Name:</strong> <span id="profileName"></span></p>
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+    </section>
+
+    <!-- Example: list user’s items (populated via scripts.js) -->
+    <section style="color:#ddd;">
+      <h3>My Listings</h3>
+      <div id="myListingsContainer" style="display:flex;flex-wrap:wrap;gap:16px;">
+        <!-- scripts.js will fetch items posted by the user and insert them here -->
+      </div>
+    </section>
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>

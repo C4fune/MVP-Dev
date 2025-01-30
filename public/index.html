@@ -1,8 +1,9 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>UniThrift - Home</title>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
@@ -14,8 +15,8 @@
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-      <!-- Logo + link back to index.html -->
-      <a href="index.html" style="text-decoration: none; color: inherit;">
+      <!-- Logo link back to home -->
+      <a href="index.html" style="text-decoration:none;color:inherit;">
         <div class="logo-section">
           <svg class="logo" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
@@ -26,25 +27,23 @@
           </svg>
         </div>
       </a>
-      <nav class="nav-links">
-        <!-- Updated links to other pages -->
+      <nav class="nav-links" id="navLinks">
+        <!-- Default links -->
         <a href="categories.html" class="nav-link">Categories</a>
         <a href="business.html" class="nav-link">Business</a>
         <a href="about.html" class="nav-link">About</a>
         <a href="leaderboard.html" class="nav-link">Leaderboard</a>
       </nav>
     </div>
-    <div class="header-right">
-      <button class="auth-button login-btn" id="openLoginModal">Log in</button>
-      <button class="auth-button signup-btn" id="openSignupModal">Sign up</button>
+    <div class="header-right" id="headerRight">
+      <!-- Dynamically toggled by scripts.js (Log in/Sign up vs. My Profile/Log out) -->
     </div>
   </header>
 
   <!-- Main Content -->
   <main class="main-content">
-    <!-- Left side with grid overlay & search container -->
+    <!-- Left side with the search container -->
     <div class="content-left">
-      <div class="grid-overlay"></div>
       <div class="search-container">
         <h1 class="search-header">Go anywhere with UniThrift</h1>
         <div class="search-options">
@@ -52,58 +51,57 @@
           <button class="option-button" id="sellOption">Sell</button>
         </div>
 
-        <!-- Location & radius inputs -->
+        <!-- Location / Radius -->
         <div class="input-group">
           <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
             <path d="M12 2C8.13 2 5 5.13 5
-                     9c0 5.25 7
-                     13 7 13s7-7.75
-                     7-13c0-3.87-3.13-7-7-7zm0
-                     9.5c-1.38 0-2-.9-2-2s.62-2
-                     2-2 2 .9
-                     2 2-.9
-                     2-2
-                     2z"/>
+            9c0 5.25 7
+            13 7 13s7-7.75
+            7-13c0-3.87-3.13-7-7-7zm0
+            9.5c-1.38 0-2-.9-2-2s.62-2
+            2-2 2 .9
+            2 2-.9
+            2-2
+            2z"/>
           </svg>
           <input type="text" id="locationInput" class="location-input" placeholder="Enter your location"/>
         </div>
+
         <div class="input-group">
           <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="#545454">
             <path d="M12 2C6.48 2
-                     2 6.48 2
-                     12s4.48
-                     10 10
-                     10 10-4.48
-                     10-10S17.52 2
-                     12 2zm0
-                     18c-4.41 0-8-3.59-8-8s3.59-8
-                     8-8 8
-                     3.59
-                     8
-                     8-3.59
-                     8-8 8z"/>
+            2 6.48
+            2 12s4.48
+            10 10
+            10 10-4.48
+            10-10S17.52 2
+            12 2zm0
+            18c-4.41 0-8-3.59-8-8s3.59-8
+            8-8 8
+            3.59 8 8-3.59 8-8 8z"/>
           </svg>
           <input type="number" id="radiusInput" class="location-input" placeholder="Distance in miles" min="1" max="50"/>
         </div>
+
         <button class="search-button" id="searchButton">See available items</button>
 
-        <!-- Create item form -->
-        <div id="createItemForm" style="display:none; margin-top: 20px;">
-          <h4 style="color: #000;">Create New Listing</h4>
+        <!-- Create Item Form (Sell) -->
+        <div id="createItemForm" style="display:none; margin-top:20px;">
+          <h4 style="color:#000;">Create New Listing</h4>
           <form id="createItemActualForm" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="Title" class="form-control mb-2"/>
             <textarea name="description" placeholder="Description" class="form-control mb-2"></textarea>
             <input type="text" name="category" placeholder="Category" class="form-control mb-2"/>
             <input type="number" name="price" placeholder="Price" class="form-control mb-2" step="0.01"/>
-            <label class="form-label">Images (up to 5):</label>
-            <input type="file" name="images" multiple class="form-control mb-2"/>
+            <label class="form-label">Images (up to 5)</label>
+            <input type="file" name="images" class="form-control mb-2" multiple/>
             <button type="submit" class="search-button mt-2">Create Listing</button>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- Right side - Map -->
+    <!-- Right side for the map -->
     <div class="content-right">
       <div id="map"></div>
       <div class="map-controls">
@@ -125,6 +123,7 @@
       </div>
       <button class="google-auth-button" id="loginWithGoogle">Continue with Google</button>
       <div class="divider"><span>or</span></div>
+
       <form class="auth-form" id="loginForm">
         <div class="form-group">
           <label for="loginEmail">Email address</label>
@@ -156,6 +155,7 @@
       </div>
       <button class="google-auth-button" id="signupWithGoogle">Continue with Google</button>
       <div class="divider"><span>or</span></div>
+
       <form class="auth-form" id="signupForm">
         <div class="form-group">
           <label for="signupName">Full name</label>
@@ -186,14 +186,17 @@
         <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
       </p>
       <div class="modal-footer">
-        Already have an account? <a id="toLoginLink" style="cursor:pointer;">Log in</a>
+        Already have an account?
+        <a id="toLoginLink" style="cursor:pointer;">Log in</a>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="scripts.js"></script>
+  <!-- Google Maps -->
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdPyD4VPA4b24sLkX1YdYbl7fx2-x6vTY&libraries=places&callback=initMap"
     async
@@ -201,4 +204,5 @@
   ></script>
 </body>
 </html>
+
 

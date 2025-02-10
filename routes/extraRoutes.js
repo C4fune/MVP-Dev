@@ -74,7 +74,9 @@ router.get('/leaderboard', async (req, res) => {
     rankScores.forEach((rs,i) => {
       const percentile = (i / totalCount) * 100; // 0% top, 100% bottom
       let rank = 'Bronze';
-      if(percentile <= 10) rank = 'Platinum';
+      if(percentile <= 1) rank = 'UniThrifter';
+      if(percentile <= 5) rank = 'Thrifter';
+      else if(percentile <= 10) rank = 'Platinum';
       else if(percentile <= 30) rank = 'Gold';
       else if(percentile <= 60) rank = 'Silver';
       rs.rank = rank;
